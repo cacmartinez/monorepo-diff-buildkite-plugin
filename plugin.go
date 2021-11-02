@@ -62,6 +62,7 @@ type Build struct {
 }
 
 func initializePlugin(data string) (Plugin, error) {
+	log.Infof("--- data: %s", data)
 	var plugins []map[string]Plugin
 
 	err := json.Unmarshal([]byte(data), &plugins)
@@ -70,6 +71,8 @@ func initializePlugin(data string) (Plugin, error) {
 		log.Debug(err)
 		return Plugin{}, errors.New("failed to parse plugin configuration")
 	}
+
+	log.Infof("--- plugins: %s", plugins)
 
 	for _, p := range plugins {
 		for key, plugin := range p {
