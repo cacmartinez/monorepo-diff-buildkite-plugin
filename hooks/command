@@ -1,16 +1,16 @@
-#!/bin/bash
-set -euo pipefail
+# #!/bin/bash
+# set -euo pipefail
 
-if [[ "$(arch)" == "aarch64" ]]; then
-  arch="arm64"
-else
-  arch="amd64"
-fi
+# if [[ "$(arch)" == "aarch64" ]]; then
+#   arch="arm64"
+# else
+#   arch="amd64"
+# fi
 
 # plugin=${BUILDKITE_PLUGINS:-""}
 # version=$(echo $plugin | sed -e 's/.*monorepo-diff-buildkite-plugin//' -e 's/\".*//')
 # repo="https://github.com/chronotc/monorepo-diff-buildkite-plugin"
-executable="monorepo-diff-buildkite-plugin-${os:-linux}-${arch}"
+# executable="monorepo-diff-buildkite-plugin-${os:-linux}-${arch}"
 # test_mode="${BUILDKITE_PLUGIN_MONOREPO_DIFF_BUILDKITE_PLUGIN_TEST_MODE:-false}"
 
 # if [ -z ${version} ]; then
@@ -24,6 +24,12 @@ executable="monorepo-diff-buildkite-plugin-${os:-linux}-${arch}"
 #   curl -Lf -o ${executable} $url && chmod +x ${executable}
 # fi
 
-echo "executing the binary in $(pwd)"
+# ./${executable}
 
+mkdir .temp
+cd .temp
+git clone https://github.com/cacmartinez/monorepo-diff-buildkite-plugin.git
+cd monorepo-diff-buildkite-plugin
+make build-${os:-linux}
+executable="monorepo-diff-buildkite-plugin-${os:-linux}-${arch}"
 ./${executable}

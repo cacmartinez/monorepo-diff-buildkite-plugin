@@ -24,7 +24,6 @@ var Version string
 func main() {
 	log.Infof("--- :one: monorepo-diff %s", Version)
 
-	log.Infof("--- plugins test")
 	plugin, err := initializePlugin(env("BUILDKITE_PLUGINS", ""))
 
 	if err != nil {

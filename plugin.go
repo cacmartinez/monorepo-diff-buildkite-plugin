@@ -8,7 +8,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const pluginName = "github.com/chronotc/monorepo-diff"
+const pluginName = "github.com/cacmartinez/monorepo-diff"
 
 // Plugin buildkite monorepo diff plugin structure
 type Plugin struct {
@@ -62,7 +62,6 @@ type Build struct {
 }
 
 func initializePlugin(data string) (Plugin, error) {
-	log.Infof("--- data: %s", data)
 	var plugins []map[string]Plugin
 
 	err := json.Unmarshal([]byte(data), &plugins)
@@ -72,10 +71,10 @@ func initializePlugin(data string) (Plugin, error) {
 		return Plugin{}, errors.New("failed to parse plugin configuration")
 	}
 
-	log.Infof("--- plugins: %s", plugins)
-
 	for _, p := range plugins {
+		log.Infof("plugin %s", p)
 		for key, plugin := range p {
+			log.Infof("key %s, plugin %s", key, plugin)
 			if strings.HasPrefix(key, pluginName) {
 				return plugin, nil
 			}
